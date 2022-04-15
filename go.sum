@@ -1,0 +1,14 @@
+github.com/digitalcircle-com-br/caroot v0.0.0-20211229200027-553deac5702d h1:KVZ+KlaLNEkpEhjKxFaEr9YJAN+EzH3U6V4IVRGHyRs=
+github.com/digitalcircle-com-br/caroot v0.0.0-20211229200027-553deac5702d/go.mod h1:SpgysqNK+IiLRwekJ3ecfarXF4LB+0k8T4xcRfZafnY=
+github.com/digitalcircle-com-br/gw v0.0.0-20211229213026-672342d2758a h1:mX0CMGDv2tLA/x8c+z6MzNLcuDtdMYosO+quJSqoGI8=
+github.com/digitalcircle-com-br/gw v0.0.0-20211229213026-672342d2758a/go.mod h1:U9XxBe/36/8ZKGVvsLQD9PagQ0fAzaNbGSJmscicjRo=
+github.com/digitalcircle-com-br/random v0.0.0-20211218111356-2816018d0ad2 h1:NLUCDVxrm6UFNJYzZB/J3HkUc50CLpm9+5QzhpO1j8A=
+github.com/digitalcircle-com-br/random v0.0.0-20211218111356-2816018d0ad2/go.mod h1:czOtTGc0h7z2iYcZuJ5A/VbxL6ZQucyyhKboLv0LOVY=
+github.com/digitalcircle-com-br/service v0.0.0-20220413084955-0b8c5a3b868e h1:FhwJpTVn8g89Kp6MFoGfvGExz+PEyPUttQYhLc6+Jq8=
+github.com/digitalcircle-com-br/service v0.0.0-20220413084955-0b8c5a3b868e/go.mod h1:UPFfHZ7/GGYvBXc5dt4NPtUb8dm5tyZmesSt1Uh3QKg=
+golang.org/x/crypto v0.0.0-20220331220935-ae2d96664a29 h1:tkVvjkPTB7pnW3jnid7kNyAMPVWllTNOf/qKDze4p9o=
+golang.org/x/crypto v0.0.0-20220331220935-ae2d96664a29/go.mod h1:IxCIyHEi3zRg3s0A5j5BB6A9Jmi73HwBIUl50j+osU4=
+golang.org/x/net v0.0.0-20211216030914-fe4d6282115f h1:hEYJvxw1lSnWIl8X9ofsYMklzaDs90JI2az5YMd4fPM=
+golang.org/x/net v0.0.0-20211216030914-fe4d6282115f/go.mod h1:9nx3DQGgdP8bBQD5qxJ1jj9UTztislL4KSBs9R2vV5Y=
+golang.org/x/text v0.3.7 h1:olpwvP2KacW1ZWvsR7uQhoyTYvKAupfQrRGBFM352Gk=
+golang.org/x/text v0.3.7/go.mod h1:u+2+/6zg+i71rQMx5EYifcz6MCKuco9NR6JIITiCfzQ=

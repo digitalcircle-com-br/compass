@@ -1,0 +1,28 @@
+addr: :8080
+https: false
+debug: true
+hops:
+hosts:
+  - host: "*"
+    routes:
+      - path: /auth/
+        target: http://auth:8080/
+      - path: /
+        target: http://sample-service:8080/
+  #     - path: /
+  #       hops:
+  #         - http://localhost:8081/a
+  #         - http://localhost:8082/a 
+  #         - http://localhost:8083/
+  # - host: "a.dc.local"
+  #   routes:
+  #     - path: /
+  #       hops:
+  #         - http://localhost:8081/a 
+  #         - http://localhost:8083/
+  # - host: "b.dc.local"
+  #   routes:
+  #     - path: /
+  #       hops:
+  #         - http://localhost:8082/a 
+  #         - http://localhost:8083/
