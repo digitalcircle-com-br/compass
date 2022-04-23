@@ -132,16 +132,20 @@ func Setup() error {
 
 func run() error {
 	var h http.HandlerFunc = func(w http.ResponseWriter, r *http.Request) {
-		m, ok := hostMuxes[strings.Split(r.Host, ":")[0]]
+		k := strings.Split(r.Host, ":")[0]
+		m, ok := hostMuxes[k]
 		if ok {
+			dbg("Serving route: %s => %s", k, r.URL.String())
 			m.ServeHTTP(w, r)
 			return
 		}
 		m, ok = hostMuxes["*"]
 		if ok {
+			dbg("Serving default: %s => %s", k, r.URL.String())
 			m.ServeHTTP(w, r)
 			return
 		}
+		dbg("No route found for: %s", r.URL.String())
 		http.NotFound(w, r)
 
 	}

@@ -25,16 +25,17 @@ docker_amd64:
 	docker build -t digitalcircle/$(PRODUCT):amd64 .
 	
 
-docker_arm64:
-	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o deploy/compass -ldflags "-s -w -X github.com/digitalcircle-com-br/buildinfo.Ver=$(GIT_COMMIT) -X github.com/digitalcircle-com-br/buildinfo.BuildDate=$(DT) -X github.com/digitalcircle-com-br/buildinfo.BuildUser=$(ME) -X github.com/digitalcircle-com-br/buildinfo.BuildHost=$(HOST) -X github.com/digitalcircle-com-br/buildinfo.Product=$(PRODUCT)" $(MAIN)
-	cd deploy && \
-	docker build -t digitalcircle/$(PRODUCT):arm64 .
+# docker_arm64:
+# 	CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o deploy/compass -ldflags "-s -w -X github.com/digitalcircle-com-br/buildinfo.Ver=$(GIT_COMMIT) -X github.com/digitalcircle-com-br/buildinfo.BuildDate=$(DT) -X github.com/digitalcircle-com-br/buildinfo.BuildUser=$(ME) -X github.com/digitalcircle-com-br/buildinfo.BuildHost=$(HOST) -X github.com/digitalcircle-com-br/buildinfo.Product=$(PRODUCT)" $(MAIN)
+# 	cd deploy && \
+# 	docker build -t digitalcircle/$(PRODUCT):arm64 .
 	
 	
-docker_local: docker_arm64 docker_amd64
-docker_push: docker_local
+docker_local: docker_amd64
+docker_only_push:
 	docker push digitalcircle/$(PRODUCT):amd64
-	docker push digitalcircle/$(PRODUCT):arm64
+#docker push digitalcircle/$(PRODUCT):arm64
+docker_push: docker_local docker_only_push
 
 pubcfg:
 	curl -v -X POST --data-binary @config.yaml http://localhost:10001/compass.yaml

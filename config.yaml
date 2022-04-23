@@ -1,9 +1,14 @@
 addr: :8080
 https: false
 debug: true
+acme: true
 hops:
 hosts:
-  - host: "*"
+  - host: "sng.digitalcircle.com.br"
+    routes:
+      - path: /
+        target: http://site:8080/
+  - host: "---"
     routes:
       - path: /auth/
         target: http://auth:8080/
