@@ -111,15 +111,17 @@ func Setup() error {
 		if !ok {
 			return nil
 		}
-		for _, v := range cfg.Hosts {
-			hostMuxes = make(map[string]*http.ServeMux)
-			service.Log("Setting up hosts: %s", v.Host)
-			h, ok := hostMuxes[v.Host]
+		hostMuxes = make(map[string]*http.ServeMux)
+		for k := range cfg.Hosts {
+			host := cfg.Hosts[k]
+
+			service.Log("Setting up hosts: %s", host.Host)
+			h, ok := hostMuxes[host.Host]
 			if !ok {
 				h = http.NewServeMux()
-				hostMuxes[v.Host] = h
+				hostMuxes[host.Host] = h
 			}
-			for _, r := range v.Routes {
+			for _, r := range host.Routes {
 				h.HandleFunc(r.Path, buildRoute(cfg, r))
 			}
 		}
