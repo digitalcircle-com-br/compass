@@ -3,7 +3,7 @@ DT := $(shell date +%Y.%m.%d.%H%M%S)
 ME := $(shell whoami)
 HOST := $(shell hostname)
 PRODUCT := compass
-PRODUCT_TAG := arm64
+PRODUCT_TAG := amd64
 MAIN := ./cmd/main.go
 
 run:
@@ -11,10 +11,6 @@ run:
 	REDIS=redis://localhost:6379 \
 	CGO_ENABLED=0 go run -ldflags "-X github.com/digitalcircle-com-br/buildinfo.Ver=$(GIT_COMMIT) -X github.com/digitalcircle-com-br/buildinfo.BuildDate=$(DT) -X github.com/digitalcircle-com-br/buildinfo.BuildUser=$(ME) -X github.com/digitalcircle-com-br/buildinfo.BuildHost=$(HOST) -X github.com/digitalcircle-com-br/buildinfo.Product=$(PRODUCT)" $(MAIN)
 
-docker:
-	CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o deploy/api -ldflags "-X github.com/digitalcircle-com-br/buildinfo.Ver=$(GIT_COMMIT) -X github.com/digitalcircle-com-br/buildinfo.BuildDate=$(DT) -X github.com/digitalcircle-com-br/buildinfo.BuildUser=$(ME) -X github.com/digitalcircle-com-br/buildinfo.BuildHost=$(HOST) -X github.com/digitalcircle-com-br/buildinfo.Product=$(PRODUCT)" $(MAIN)
-	cd deploy && \
-	docker build -t $(PRODUCT):$(PRODUCT_TAG) .
 
 docker_run:
 	docker run --rm -it -p 8080:8080 digitalcircle/$(PRODUCT):$(PRODUCT_TAG)

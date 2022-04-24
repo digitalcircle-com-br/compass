@@ -1,19 +1,19 @@
 addr: :8080
 https: false
 debug: true
-acme: false
+acme: true
 hops:
 hosts:
-  - host: "*"
+  - host: "sng.digitalcircle.com.br"
     routes:
       - path: /
-        target: http://localhost:8081/
-  - host: "---"
-    routes:
-      - path: /auth/
-        target: http://auth:8080/
-      - path: /
-        target: http://sample-service:8080/
+        target: http://site:8080/
+  # - host: "---"
+  #   routes:
+  #     - path: /auth/
+  #       target: http://auth:8080/
+  #     - path: /
+  #       target: http://sample-service:8080/
   #     - path: /
   #       hops:
   #         - http://localhost:8081/a

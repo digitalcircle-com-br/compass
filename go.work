@@ -2,4 +2,4 @@ go 1.18
 
 use .
 
-replace github.com/digitalcircle-com-br/service => ../service
+//replace github.com/digitalcircle-com-br/service => ../service
