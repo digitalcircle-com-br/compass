@@ -4,10 +4,18 @@ debug: true
 acme: true
 hops:
 hosts:
+  - host: "supernova.guide"
+    routes:
+      - path: /api/
+        target: http://sng-api:8080/
+      - path: /
+        target: http://site:8080/
   - host: "sng.digitalcircle.com.br"
     routes:
       - path: /
         target: http://site:8080/
+
+
   # - host: "---"
   #   routes:
   #     - path: /auth/

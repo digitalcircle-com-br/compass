@@ -36,18 +36,25 @@ func buildRoute(cfg *types.Config, route *types.Route) http.HandlerFunc {
 		start := time.Now()
 		fhost := r.Host
 		npath := strings.Replace(r.URL.Path, route.Path, route.Target, 1)
-		freq, err := http.NewRequest(r.Method, npath, r.Body)
-		freq.Header = r.Header
-		if err != nil {
-			http.Error(w, err.Error(), http.StatusInternalServerError)
+		service.Debug("Replacing: %s - %s  - %s => %s", r.URL.Path, route.Path, route.Target, npath)
+		queryParams := r.URL.Query().Encode()
+		if len(queryParams) > 0 {
+			npath = npath + "?" + queryParams
 		}
 
+		freq, err := http.NewRequest(r.Method, npath, r.Body)
+		if err != nil {
+			http.Error(w, err.Error(), http.StatusInternalServerError)
+			return
+		}
+		freq.Header = r.Header
 		for i := 0; i < len(allhops); i++ {
 
 			req, err := http.NewRequest(http.MethodGet, allhops[i], nil)
 			req.Header = freq.Header
 			if err != nil {
 				http.Error(w, err.Error(), http.StatusInternalServerError)
+				return
 			}
 			res, err := cli.Do(req)
 			if err != nil {
