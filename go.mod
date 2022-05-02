@@ -5,11 +5,12 @@ go 1.18
 require (
 	github.com/digitalcircle-com-br/caroot v0.0.0-20211229200027-553deac5702d
 	github.com/digitalcircle-com-br/random v0.0.0-20211218111356-2816018d0ad2
-	github.com/digitalcircle-com-br/service v0.0.0-20220418132120-e3f43c03d0ee
-	golang.org/x/crypto v0.0.0-20220411220226-7b82a4e95df4
+	github.com/digitalcircle-com-br/service v0.0.0-20220502102058-a58ea05e238b
+	golang.org/x/crypto v0.0.0-20220427172511-eb4f295cb31f
 )
 
 require (
+	github.com/breml/rootcerts v0.2.3 // indirect
 	github.com/brianvoe/gofakeit/v6 v6.16.0 // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
@@ -27,9 +28,9 @@ require (
 	github.com/jackc/pgx/v4 v4.16.0 // indirect
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
-	golang.org/x/net v0.0.0-20220421235706-1d1ef9303861 // indirect
+	golang.org/x/net v0.0.0-20220425223048-2871e0cb64e4 // indirect
 	golang.org/x/text v0.3.7 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
-	gorm.io/driver/postgres v1.3.4 // indirect
-	gorm.io/gorm v1.23.4 // indirect
+	gorm.io/driver/postgres v1.3.5 // indirect
+	gorm.io/gorm v1.23.5 // indirect
 )

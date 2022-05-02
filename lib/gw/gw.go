@@ -24,6 +24,63 @@ var dbg = func(s string, i ...interface{}) {
 
 }
 
+func tpcPingHandler(w http.ResponseWriter, r *http.Request) {
+	addr := r.URL.Query().Get("addr")
+	if addr == "" {
+		http.Error(w, "addr not provided", http.StatusBadRequest)
+		return
+	}
+	start := time.Now()
+	conn, err := net.Dial("tcp", addr)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadGateway)
+		return
+	}
+	conn.Close()
+	w.WriteHeader(http.StatusOK)
+	w.Write([]byte(fmt.Sprintf("Connection ok - time: %s", time.Since(start).String())))
+}
+
+func curlHandler(w http.ResponseWriter, r *http.Request) {
+	addr := r.URL.Query().Get("url")
+	method := r.URL.Query().Get("method")
+	if method == "" {
+		method = http.MethodGet
+	}
+	defer r.Body.Close()
+
+	req, err := http.NewRequest(method, addr, r.Body)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+	req.Header = r.Header
+	res, err := http.DefaultClient.Do(req)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadGateway)
+		return
+	}
+	defer res.Body.Close()
+	for k, v := range res.Header {
+		for _, vv := range v {
+			w.Header().Add(k, vv)
+		}
+	}
+	w.WriteHeader(res.StatusCode)
+	io.Copy(w, res.Body)
+}
+
+func buildRoutes(cfg *types.Config, route *types.Route) http.HandlerFunc {
+	switch route.Target {
+	case "@ping":
+		return tpcPingHandler
+	case "@curl":
+		return curlHandler
+	default:
+		return buildRoute(cfg, route)
+	}
+}
+
 func buildRoute(cfg *types.Config, route *types.Route) http.HandlerFunc {
 
 	allhops := make([]string, 0)
@@ -89,6 +146,7 @@ func buildRoute(cfg *types.Config, route *types.Route) http.HandlerFunc {
 		}
 
 		w.Header().Set("Host", fhost)
+		w.WriteHeader(res.StatusCode)
 		service.ServerTiming(w, "endpoint", "Endpoint", start)
 		defer res.Body.Close()
 		io.Copy(w, res.Body)
@@ -129,7 +187,7 @@ func Setup() error {
 				hostMuxes[host.Host] = h
 			}
 			for _, r := range host.Routes {
-				h.HandleFunc(r.Path, buildRoute(cfg, r))
+				h.HandleFunc(r.Path, buildRoutes(cfg, r))
 			}
 		}
 		if !running {
